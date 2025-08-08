@@ -1,0 +1,14 @@
+#!/bin/bash
+
+CLIPS=${CLIPS:=/clips}
+
+trap 'dancerctl off all' EXIT
+
+# it's time to light the lights
+dancerctl flipflop front --period 0.79 --duty-cycle 1
+
+# start tube guys
+dancerctl on rear
+
+# it's time to play the music
+aplay "$CLIPS/pbjtime_15s.wav"

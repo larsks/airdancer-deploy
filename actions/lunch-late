@@ -1,0 +1,7 @@
+#!/bin/bash
+
+CLIPS=${CLIPS:=/clips}
+
+trap 'dancerctl off all' EXIT
+dancerctl blink front-left
+aplay "$CLIPS/wizard-needs-food.wav"
