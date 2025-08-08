@@ -1,0 +1,6 @@
+# Sample configuration for airdancer-ui
+listen-address = "0.0.0.0"
+listen-port = 8081
+
+# Base URL for the API server
+api-base-url = "/api"

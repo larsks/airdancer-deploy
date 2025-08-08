@@ -1,0 +1,53 @@
+# Sample configuration for airdancer-api
+listen-address = "0.0.0.0"
+listen-port = 8080
+
+[collections.outlets]
+driver = 'gpio'
+
+[collections.outlets.driverconfig]
+pins = [
+  "GPIO23:active-low",
+  "GPIO24:active-low",
+  "GPIO27:active-low",
+  "GPIO22:active-low",
+]
+
+#[collections.remote]
+#driver = 'tasmota'
+#
+#[collections.remote.driverconfig]
+#addresses = ["10.42.42.237", "10.42.42.60"]
+#
+[switches.rear-right]
+spec = "outlets.0"
+
+[switches.front-right]
+spec = "outlets.1"
+
+[switches.rear-left]
+spec = "outlets.2"
+
+[switches.front-left]
+spec = "outlets.3"
+
+#[switches.remote1]
+#spec = "remote.1"
+#
+#[switches.remote0]
+#spec = "remote.0"
+
+[groups.left]
+switches = ["front-left", "rear-left"]
+
+[groups.right]
+switches = ["front-right", "rear-right"]
+
+[groups.front]
+switches = ["front-left", "front-right"]
+
+[groups.rear]
+switches = ["rear-left", "rear-right"]
+
+#[groups.remote]
+#switches = ["remote0", "remote1"]

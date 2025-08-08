@@ -1,0 +1,4 @@
+server-url = "http://localhost:8080"
+display-timeout = "30s"
+mqtt-server = "mqtt://localhost:1883"
+#update-interval = "5s"

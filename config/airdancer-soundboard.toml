@@ -1,0 +1,12 @@
+listen-address = ""
+listen-port = 8082
+sound-directory = "/clips"
+items-per-page = 20
+
+# ALSA configuration for server-side playback
+# (Playback mode is selected in the UI)
+alsa-device = "default"
+alsa-card-name = ""
+base-url = "/sounds/"
+
+scan-interval = 10

@@ -1,0 +1,98 @@
+services:
+  api:
+    image: ${AIRDANCER_IMAGE:-ghcr.io/larsks/airdancer:latest}
+    volumes:
+    - "./config:/config"
+    command:
+    - airdancer-api
+    - --config
+    - /config/airdancer-api.toml
+    ports:
+    - "${AIRDANCER_API_PORT:-8080}:8080"
+    devices:
+    - /dev/gpiochip0
+  ui:
+    image: ${AIRDANCER_IMAGE:-ghcr.io/larsks/airdancer:latest}
+    volumes:
+    - "./config:/config"
+    command:
+    - airdancer-ui
+    - --config
+    - /config/airdancer-ui.toml
+  buttons:
+    image: ${AIRDANCER_IMAGE:-ghcr.io/larsks/airdancer:latest}
+    depends_on:
+      nanomq:
+        condition: service_started
+    volumes:
+    - "./config:/config"
+    environment:
+      DANCER_SERVER_URL: http://api:8080
+    command:
+    - airdancer-buttons
+    - --config
+    - /config/airdancer-buttons.toml
+    devices:
+    - /dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick
+  status:
+    network_mode: host
+    image: ${AIRDANCER_IMAGE:-ghcr.io/larsks/airdancer:latest}
+    depends_on:
+      titles:
+        condition: service_completed_successfully
+      nanomq:
+        condition: service_started
+    volumes:
+    - "./config:/config"
+    command:
+    - airdancer-status
+    - --config
+    - /config/airdancer-status.toml
+    devices:
+    - /dev/i2c-1
+    - /dev/vcio
+  soundboard:
+    image: ${AIRDANCER_IMAGE:-ghcr.io/larsks/airdancer:latest}
+    volumes:
+    - "./config:/config"
+    - "./clips:/clips"
+    command:
+    - airdancer-soundboard
+    - --config
+    - /config/airdancer-soundboard.toml
+    devices:
+    - /dev/snd/controlC0
+    - /dev/snd/controlC1
+    - /dev/snd/pcmC0D0p
+    - /dev/snd/pcmC1D0p
+    - /dev/snd/seq
+    - /dev/snd/timer
+
+  # titles shows a short animated sequence on the display
+  # before starting up the status service.
+  titles:
+    image: ghcr.io/larsks/display1306:latest
+    devices:
+    - /dev/i2c-1
+    volumes:
+    - ./titles:/titles
+    working_dir: /titles
+    command:
+    - bash
+    - run-titles.sh
+
+  # caddy acts as the web frontend for the api, ui, and soundboard services.
+  caddy:
+    image: docker.io/caddy:latest
+    volumes:
+    - "./config:/etc/caddy"
+    ports:
+    - "80:80"
+
+  # nanomq is an mqtt message queue. the buttons service publishes
+  # events to the queue, and the status service subscribes to these
+  # events to wake the display on button presses.
+  nanomq:
+    image: docker.io/emqx/nanomq:latest
+    ports:
+    - "${AIRDANCER_MQTT_PORT:-1883}:1883"

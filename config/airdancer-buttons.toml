@@ -1,0 +1,28 @@
+short-press-duration = "2s"
+long-press-duration = "5s"
+timeout = "10s"
+mqtt-server = "mqtt://nanomq:1883"
+
+[[buttons]]
+name = "green0"
+driver = "event"
+spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:296"
+click-action = "dancerctl toggle left1"
+
+[[buttons]]
+name = "green1"
+driver = "event"
+spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:297"
+click-action = "dancerctl toggle left0"
+
+[[buttons]]
+name = "blue0"
+driver = "event"
+spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:298"
+click-action = "dancerctl toggle right0"
+
+[[buttons]]
+name = "blue1"
+driver = "event"
+spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:299"
+click-action = "dancerctl toggle right1"

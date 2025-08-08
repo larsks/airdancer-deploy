@@ -1,0 +1,27 @@
+[connection]
+id=airdancer-switches
+type=wifi
+autoconnect=true
+interface-name=wlswitch
+
+[wifi]
+band=bg
+channel=1
+mode=ap
+ssid=Airdancer Switches
+
+[wifi-security]
+group=ccmp;
+key-mgmt=wpa-psk
+pairwise=ccmp;
+proto=rsn;
+psk=safety.dance
+
+[ipv4]
+method=shared
+
+[ipv6]
+addr-gen-mode=default
+method=ignore
+
+[proxy]
