@@ -7,22 +7,22 @@ mqtt-server = "mqtt://nanomq:1883"
 name = "green0"
 driver = "event"
 spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:296"
-click-action = "dancerctl toggle left1"
+click-action = "dancerctl toggle front-left"
 
 [[buttons]]
 name = "green1"
 driver = "event"
 spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:297"
-click-action = "dancerctl toggle left0"
+click-action = "dancerctl toggle rear-left"
 
 [[buttons]]
 name = "blue0"
 driver = "event"
 spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:298"
-click-action = "dancerctl toggle right0"
+click-action = "dancerctl toggle rear-right"
 
 [[buttons]]
 name = "blue1"
 driver = "event"
 spec = "/dev/input/by-id/usb-Microntek_USB_Joystick-event-joystick:EV_KEY:299"
-click-action = "dancerctl toggle right1"
+click-action = "dancerctl toggle front-right"
